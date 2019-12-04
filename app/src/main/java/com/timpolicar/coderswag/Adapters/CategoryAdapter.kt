@@ -12,11 +12,8 @@ import com.timpolicar.coderswag.R
 
 //THIS IS LISTVIEW ADAPTER WHICH IS NOT USED. WE ARE USING A BETTER ONE - RECYCLEVIEW ADAPTER
 //BaseAdapter: it is a base adapter that other adapter inherit from
-class CategoryAdapter(context: Context, categories: List<Category>): BaseAdapter() {
+class CategoryAdapter(val context: Context, val categories: List<Category>): BaseAdapter() {
     //these 4 need to be implemented!!
-
-    val context = context
-    val categories = categories
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val categoryView: View
