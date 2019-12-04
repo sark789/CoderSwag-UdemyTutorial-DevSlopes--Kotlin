@@ -3,6 +3,7 @@ package com.timpolicar.coderswag.Controller
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import com.timpolicar.coderswag.Adapters.CategoryAdapter
 import com.timpolicar.coderswag.Model.Category
 import com.timpolicar.coderswag.R
@@ -15,6 +16,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var adapter : CategoryAdapter
 
     //Adapter: middle man for data and views
+    //RecyclerView is improved ListView! Better optimize because u have to use ViewHolder, more built in tools, but it doesnthave built in onclick listener
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -25,8 +27,14 @@ class MainActivity : AppCompatActivity() {
 
 
         adapter = CategoryAdapter(this, DataService.categories)
+        categoryListView.adapter = this.adapter // telling listview who it needs to listen to (setting) the list adapter to this adapter that we created
 
-            categoryListView.adapter = this.adapter // telling listview who it needs to listen to (setting) the list adapter to this adapter that we created
+//        //THIS WONT WORK FOR RECYCLER VIEW
+//        categoryListView.setOnItemClickListener { parent, view, position, id ->
+//            val category = DataService.categories[position]
+//            Toast.makeText(this, "You clicked on the ${category.title} cell", Toast.LENGTH_SHORT).show()
+//
+//        }
 
     }
 }

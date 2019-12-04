@@ -10,6 +10,7 @@ import android.widget.TextView
 import com.timpolicar.coderswag.Model.Category
 import com.timpolicar.coderswag.R
 
+//THIS IS LISTVIEW ADAPTER WHICH IS NOT USED. WE ARE USING A BETTER ONE - RECYCLEVIEW ADAPTER
 //BaseAdapter: it is a base adapter that other adapter inherit from
 class CategoryAdapter(context: Context, categories: List<Category>): BaseAdapter() {
     //these 4 need to be implemented!!
