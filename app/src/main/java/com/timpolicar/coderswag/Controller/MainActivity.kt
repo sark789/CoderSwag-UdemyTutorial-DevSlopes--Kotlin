@@ -1,5 +1,6 @@
 package com.timpolicar.coderswag.Controller
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
@@ -10,6 +11,7 @@ import com.timpolicar.coderswag.Adapters.CategoryRecycleAdapter
 import com.timpolicar.coderswag.Model.Category
 import com.timpolicar.coderswag.R
 import com.timpolicar.coderswag.Services.DataService
+import com.timpolicar.coderswag.Utilities.EXTRA_CATEGORY
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -28,7 +30,11 @@ class MainActivity : AppCompatActivity() {
             //android.R.layout.simple_list_item_1, DataService.categories) //context, some default look (view) - how we want it to look, what are we presenting (data)
 
 
-        adapter = CategoryRecycleAdapter(this, DataService.categories)
+        adapter = CategoryRecycleAdapter(this, DataService.categories){ it ->
+            val productIntent = Intent(this, ProductsActivity::class.java)
+            productIntent.putExtra(EXTRA_CATEGORY, it.title) // so we know which category we clicked (we packed the info here - unpacked in the ProductsActivity)
+            startActivity(productIntent)
+        } //lambda (here we determine what onClcik does, in CategoryRecycleAdapter we initiate it)
         categoryListView.adapter = this.adapter // telling listview who it needs to listen to (setting) the list adapter to this adapter that we created
 
 //        //THIS WONT WORK FOR RECYCLER VIEW - works on listView
@@ -42,6 +48,7 @@ class MainActivity : AppCompatActivity() {
         val layoutManager = LinearLayoutManager(this)
         categoryListView.layoutManager = layoutManager
         categoryListView.setHasFixedSize(true) //optimization if we know that the cards wont be resizing
+
 
     }
 }

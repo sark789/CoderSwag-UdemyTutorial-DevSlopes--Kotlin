@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.timpolicar.coderswag.Model.Category
 import com.timpolicar.coderswag.R
 
-class CategoryRecycleAdapter(val context: Context, val categories: List<Category>) : RecyclerView.Adapter<CategoryRecycleAdapter.Holder>() {
+class CategoryRecycleAdapter(val context: Context, val categories: List<Category>, val itemClick: (Category) -> Unit) : RecyclerView.Adapter<CategoryRecycleAdapter.Holder>() {
     
 
     // called when new viewholders are needed. Similar to layoutinflate.
@@ -26,7 +26,7 @@ class CategoryRecycleAdapter(val context: Context, val categories: List<Category
 
     //called by the recyclerview to display the data at the specified location - this is some kind of preparation
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        holder?.bindCategory(categories[position], context)
+        holder?.bindCategory(categories[position], context, itemClick)
     }
 
 
@@ -35,11 +35,15 @@ class CategoryRecycleAdapter(val context: Context, val categories: List<Category
         val catImage = itemView?.findViewById<ImageView>(R.id.categoryimage)
         val catName = itemView?.findViewById<TextView>(R.id.categoryname)
 
-        fun bindCategory(category: Category, context: Context){
+        fun bindCategory(category: Category, context: Context, itemClick: (Category) -> Unit){
             val resourceId = context.resources.getIdentifier(category.image, "drawable", context.packageName) //getting the image (we want) by the name from resources
             //setting the name,image on layout to the title and image in Category class
             catImage?.setImageResource(resourceId)
             catName?.text = category.title
+
+
+            //onClickListener for for categories - with LAMBDA!
+            itemView.setOnClickListener { itemClick(category) }
         }
     }
 }
